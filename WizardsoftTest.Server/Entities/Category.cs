@@ -1,4 +1,4 @@
-﻿namespace WizardsoftTest.Server.Models;
+﻿namespace WizardsoftTest.Server.Entities;
 
 public class Category(string name, Guid? parentCategoryId)
 {

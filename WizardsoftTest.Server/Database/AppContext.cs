@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using WizardsoftTest.Server.Entities;
 using WizardsoftTest.Server.Models;
 
 namespace WizardsoftTest.Server.Database;

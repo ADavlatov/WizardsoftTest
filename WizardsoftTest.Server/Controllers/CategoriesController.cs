@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WizardsoftTest.Server.Models.Requests;
+using WizardsoftTest.Server.Models;
 using WizardsoftTest.Server.Services;
 using AppContext = WizardsoftTest.Server.Database.AppContext;
 
 namespace WizardsoftTest.Server.Controllers;
 
 [ApiController]
-[Route("api/v1/[controller]")]
+[Route("api/v1/categories")]
 public class CategoriesController(AppContext db) : ControllerBase
 {
     [HttpPost]

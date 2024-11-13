@@ -1,3 +1,3 @@
-﻿namespace WizardsoftTest.Server.Models.Requests;
+﻿namespace WizardsoftTest.Server.Models;
 
 public record AddCategoryRequest(string Name, Guid? ParentCategoryId);

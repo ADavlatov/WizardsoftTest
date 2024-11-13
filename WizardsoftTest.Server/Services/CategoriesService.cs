@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WizardsoftTest.Server.Entities;
 using WizardsoftTest.Server.Models;
-using WizardsoftTest.Server.Models.Requests;
 using AppContext = WizardsoftTest.Server.Database.AppContext;
 
 namespace WizardsoftTest.Server.Services;
