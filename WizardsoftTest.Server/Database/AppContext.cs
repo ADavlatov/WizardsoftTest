@@ -8,7 +8,8 @@ public sealed class AppContext : DbContext
 {
     public DbSet<Category> Categories { get; init; }
 
-    public AppContext()
+    public AppContext(DbContextOptions<AppContext> options)
+        : base(options)
     {
         Database.EnsureCreated();
     }
