@@ -1,0 +1,40 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+    await Model.OnGetAsync();
+}
+
+<ul>
+    
+    @foreach (var category in Model.Categories)
+    {
+        <li>
+            @category.Name
+            <ul>
+                @foreach (var subcategory in category.Subcategories)
+                {
+                    <li>
+                        @subcategory.Name
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+</ul>
+
+<form asp-page-handler="AddCategory">
+    <input type="text" name="name" placeholder="Enter new category name" />
+    <button type="submit">Add Category</button>
+</form>
+
+<form asp-page-handler="UpdateCategory">
+    <input type="hidden" name="id" value="@Model.SelectedCategory.Id" />
+    <input type="text" name="name" value="@Model.SelectedCategory.Name" />
+    <button type="submit">Update Category</button>
+</form>
+
+<form asp-page-handler="DeleteCategory">
+    <input type="hidden" name="id" value="@Model.SelectedCategory.Id" />
+    <button type="submit">Delete Category</button>
+</form>

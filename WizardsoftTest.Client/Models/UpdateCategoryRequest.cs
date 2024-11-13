@@ -1,3 +1,3 @@
-﻿namespace WizardsoftTest.Server.Models.Requests;
+﻿namespace WizardsoftTest.Client.Models;
 
 public record UpdateCategoryRequest(Guid Id, string Name);

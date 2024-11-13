@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WizardsoftTest.Server", "WizardsoftTest.Server\WizardsoftTest.Server.csproj", "{AA4B48E9-57D5-4635-8DBF-3978F20B3AAB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WizardsoftTest.Client", "WizardsoftTest.Client\WizardsoftTest.Client.csproj", "{F77BCA43-FB71-44A7-A3E5-EF4A7F609E2B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{AA4B48E9-57D5-4635-8DBF-3978F20B3AAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA4B48E9-57D5-4635-8DBF-3978F20B3AAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA4B48E9-57D5-4635-8DBF-3978F20B3AAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F77BCA43-FB71-44A7-A3E5-EF4A7F609E2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F77BCA43-FB71-44A7-A3E5-EF4A7F609E2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F77BCA43-FB71-44A7-A3E5-EF4A7F609E2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F77BCA43-FB71-44A7-A3E5-EF4A7F609E2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
