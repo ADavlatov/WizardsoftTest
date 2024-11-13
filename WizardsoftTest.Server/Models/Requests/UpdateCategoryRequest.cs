@@ -1,6 +1,3 @@
 ﻿namespace WizardsoftTest.Server.Models.Requests;
 
-public class UpdateCategoryRequest
-{
-    public string Name { get; set; }
-}
+public record UpdateCategoryRequest(Guid Id, string Name);
