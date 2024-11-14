@@ -9,9 +9,9 @@ public class CategoriesService(AppContext db)
 {
     public async Task<Category?> AddCategory(AddCategoryRequest request)
     {
-        var category = new Category(request.Name, null);
-        
-        if (request.ParentCategoryId == null)
+        var category = new Category(request.Name);
+
+        if (!Guid.TryParse(request.ParentCategoryId, out _))
         {
             await db.Categories.AddAsync(category);
             await db.SaveChangesAsync();
@@ -19,13 +19,12 @@ public class CategoriesService(AppContext db)
             return category;
         }
 
-        var parentCategory = await db.Categories.FirstOrDefaultAsync(x => x.Id == request.ParentCategoryId);
+        var parentCategory = await db.Categories.FirstOrDefaultAsync(x => x.Id == Guid.Parse(request.ParentCategoryId));
         if (parentCategory == null)
         {
             return null;
         }
 
-        category.ParentCategoryId = parentCategory.Id;
         parentCategory.Subcategories.Add(category);
         await db.SaveChangesAsync();
 
