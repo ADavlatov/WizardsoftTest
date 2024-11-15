@@ -1,84 +1,52 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WizardsoftTest.Server.Entities;
+using WizardsoftTest.Server.Interfaces;
 using WizardsoftTest.Server.Models;
+using WizardsoftTest.Server.Repositories;
 using AppContext = WizardsoftTest.Server.Database.AppContext;
 
 namespace WizardsoftTest.Server.Services;
 
-public class CategoriesService(AppContext db)
+public class CategoriesService
 {
-    public async Task<Category?> AddCategory(AddCategoryRequest request)
+    private readonly ICategoriesRepository _repository;
+
+    public CategoriesService(ICategoriesRepository repository)
     {
-        var category = new Category(request.Name);
-
-        if (!Guid.TryParse(request.ParentCategoryId, out _))
-        {
-            await db.Categories.AddAsync(category);
-            await db.SaveChangesAsync();
-
-            return category;
-        }
-
-        var parentCategory = await db.Categories.FirstOrDefaultAsync(x => x.Id == Guid.Parse(request.ParentCategoryId));
-        if (parentCategory == null)
-        {
-            return null;
-        }
-
-        parentCategory.Subcategories.Add(category);
-        await db.SaveChangesAsync();
-
-        return category;
+        _repository = repository;
     }
 
     public async Task<List<Category>> GetAllCategories()
     {
-        var categories = await db.Categories.ToListAsync();
-
-        return categories;
+        return await _repository.GetAllCategories();
     }
 
-    public async Task<Category?> GetCategory(Guid id)
+    public async Task<Category> GetCategory(Guid id)
     {
-        var category = await db.Categories
-            .Include(x => x.Subcategories).FirstOrDefaultAsync(x => x.Id == id);
-
-        if (category == null)
-        {
-            return null;
-        }
-
-        return category;
+        return await _repository.GetCategory(id);
     }
 
-    public async Task<Category?> UpdateCategory(UpdateCategoryRequest request)
+    public async Task<Category> AddCategory(AddCategoryRequest request)
     {
-        var category = await db.Categories.FirstOrDefaultAsync(x => x.Id == request.Id);
-
-        if (category == null)
+        if (Guid.TryParse(request.ParentCategoryId, out _))
         {
-            return null;
+            var parentCategory = await _repository.GetCategory(Guid.Parse(request.ParentCategoryId));
+            return await _repository.AddCategory(new Category(request.Name), parentCategory);
         }
+        
+        return await _repository.AddCategory(new Category(request.Name), null);
+    }
 
+    public async Task<Category> UpdateCategory(UpdateCategoryRequest request)
+    {
+        var category = await _repository.GetCategory(request.Id);
         category.Name = request.Name;
-        db.Categories.Update(category);
-        await db.SaveChangesAsync();
-
-        return category;
+        
+        return await _repository.UpdateCategory(category);
     }
 
-    public async Task<Category?> DeleteCategory(Guid id)
+    public async Task<Category> DeleteCategory(Guid id)
     {
-        var category = await db.Categories.FirstOrDefaultAsync(x => x.Id == id);
-
-        if (category == null)
-        {
-            return null;
-        }
-
-        db.Categories.Remove(category);
-        await db.SaveChangesAsync();
-
-        return category;
+        return await _repository.DeleteCategory(id);
     }
 }
