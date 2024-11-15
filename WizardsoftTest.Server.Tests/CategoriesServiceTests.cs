@@ -17,7 +17,8 @@ public class CategoriesServiceTests
         _service = new CategoriesService(_repositoryMock.Object);
     }
 
-    [Fact]
+    [Fact(DisplayName = "Получение всех категорий: возвращает список категорий и все подкатегории.")]
+
     public async Task GetAllCategories_ReturnsCategories()
     {
         // Arrange
@@ -34,7 +35,7 @@ public class CategoriesServiceTests
         Assert.Equal("Category 2", result[1].Name);
     }
 
-    [Fact]
+    [Fact(DisplayName = "Получение категории по ID: возвращает категорию")]
     public async Task GetCategory_ReturnsCategory()
     {
         // Arrange
@@ -48,7 +49,7 @@ public class CategoriesServiceTests
         Assert.Equal("Category 1", result.Name);
     }
 
-    [Fact]
+    [Fact(DisplayName = "Добавление новой категории: возвращает добавленнию категорию")]
     public async Task AddCategory_ReturnsCategory()
     {
         // Arrange
@@ -62,24 +63,25 @@ public class CategoriesServiceTests
         Assert.Equal("Category 1", result.Name);
     }
 
-    [Fact]
+    [Fact(DisplayName = "Обновление категории: возвращает обновленную категорию")]
+
     public async Task UpdateCategory_ReturnsCategory()
     {
         // Arrange
         var category = new Category("Category 1");
         var id = Guid.NewGuid();
-        
         category.Id = id;
+        _repositoryMock.Setup(r => r.GetCategory(It.IsAny<Guid>())).ReturnsAsync(category);
         _repositoryMock.Setup(r => r.UpdateCategory(It.IsAny<Category>())).ReturnsAsync(category);
 
         // Act
-        var result = await _service.UpdateCategory(new UpdateCategoryRequest(category.Id, "Category 2"));
+        var result = await _service.UpdateCategory(new UpdateCategoryRequest(id, "Category 2"));
 
         // Assert
         Assert.Equal("Category 2", result.Name);
     }
-
-    [Fact]
+    
+    [Fact(DisplayName = "Удаление категории: ничего не возвращает")]
     public async Task DeleteCategory_ReturnsCategory()
     {
         // Arrange
