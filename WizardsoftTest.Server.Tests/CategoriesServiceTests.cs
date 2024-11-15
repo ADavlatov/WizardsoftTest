@@ -81,7 +81,7 @@ public class CategoriesServiceTests
         Assert.Equal("Category 2", result.Name);
     }
     
-    [Fact(DisplayName = "Удаление категории: ничего не возвращает")]
+    [Fact(DisplayName = "Удаление категории: возвращает удаленную категорию")]
     public async Task DeleteCategory_ReturnsCategory()
     {
         // Arrange
